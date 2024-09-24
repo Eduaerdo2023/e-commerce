@@ -46,8 +46,8 @@ const loginUser = asyncHandler(async (req, res) => {
       });
       return;
     } else {
-       res.status(400);
-       throw new Error("Invalid user data");
+      res.status(400);
+      throw new Error("Invalid user data");
     }
   }
 });
@@ -96,12 +96,47 @@ const updateProfile = asyncHandler(async (req, res) => {
   }
 });
 
-const deleteUser = asyncHandler(async(req, res)=> {
-const user = await User.findById(req.params.id);
-console.log(user);
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    if (user.isAdmin) {
+      throw new Error("Cannot delete admin user");
+    }
+    await User.deleteOne({ _id: user.i_id });
+    res.json({ message: "User removed" });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
 
+const getUserById = asyncHandler(async(req, res)=> {
+  const user = await User.findById(req.params.id).select('-password')
+  if (user) {
+    res.json(user)
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
 })
 
+const adminUpdateUser = asyncHandler(async(req, res)=> {
+const user = await User.findById(req.params.id);
+  if (user) {
+    user.username = req.body.username || user.username;
+    user.isAdmin = Boolean(req.body.isAdmin)
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+})
 export {
   createUser,
   loginUser,
@@ -109,5 +144,7 @@ export {
   getAllUsers,
   getCurrentUser,
   updateProfile,
-  deleteUser
+  deleteUser,
+  getUserById,
+  adminUpdateUser
 };
