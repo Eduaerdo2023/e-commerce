@@ -10,8 +10,12 @@ import {
 import { FaHeart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navigation.css";
+import { useSelector, useDispatch } from "react-redux";
+import { useLoginMutation } from "../../redux/api/usersApiSlice";
+import { logout } from "../../redux/features/auth/authSlice";
 
 const Navigation = () => {
+  const { userInfo } = useSelector((state) => state.auth);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleDropdown = () => {
@@ -22,6 +26,21 @@ const Navigation = () => {
   };
   const closeSidebar = () => {
     setShowSidebar(false);
+  };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { logoutApiCall } = useLoginMutation();
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div
@@ -61,6 +80,18 @@ const Navigation = () => {
           <span className="hidden nav-item-name mt-[3rem]">FAVORITE</span>{" "}
         </Link>
       </div>
+      <div className="relative">
+        <button
+          onClick={toggleDropdown}
+          className="flex items-center text-gray-800 focus:outline-none"
+        >
+          {userInfo ? (
+            <span className="text-white">{userInfo.username}</span>
+          ) : (
+            <></>
+          )}
+        </button>
+      </div>
       <ul>
         <li>
           <Link
@@ -68,9 +99,7 @@ const Navigation = () => {
             className="flex items-center transition-transform hover:translate-x-2"
           >
             <AiOutlineLogin className="mr-2 mt-[3rem]" size={26} />
-            <span className="hidden nav-item-name mt-[3rem]">
-              Login
-            </span>{" "}
+            <span className="hidden nav-item-name mt-[3rem]">LOGIN</span>{" "}
           </Link>
         </li>
         <li>
