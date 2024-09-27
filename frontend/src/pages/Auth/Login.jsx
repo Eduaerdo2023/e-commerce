@@ -43,7 +43,6 @@ const Login = () => {
     <section className="pl-[10rem] flex flex-wrap">
       <div className="mr-[4rem] mt-[5rem]">
         <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
-
         <form onSubmit={submitHandler} className="container w-[40rem]">
           <div className="my-[2rem]">
             <label
@@ -88,7 +87,6 @@ const Login = () => {
 
         {isLoading && <Loader />}
         </form>
-
         <div className="mt-4 mb-3">
           <p className="text-orange-900">
             New Customer?{" "}
