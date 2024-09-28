@@ -49,7 +49,7 @@ const Navigation = () => {
       style={{ zIndex: 999 }}
       className={`${
         showSidebar ? "hidden" : "flex"
-      } xl:flex lg:flex md:hidden sm:hidden  flex-col justify-between p-4 text-white bg-black w-[4%] hover:w-[15%] h-[100vh] fixed`}
+      } xl:flex lg:flex md:hidden sm:hidden  flex-col justify-between p-4 text-white bg-slate-700 w-[4%] hover:w-[10%] h-[100vh] fixed`}
       id="navigation-container"
     >
       <div className="flex flex-col justify-center space-y-4">
@@ -96,7 +96,7 @@ const Navigation = () => {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className={`h-4 w-4 ml-1 ${
-                dropdownOpen ? "transform rotate-180" : ""
+                dropdownOpen ? "transform-rotate-180" : ""
               }`}
               fill="none"
               viewBox="0 0 24 24"
@@ -113,7 +113,7 @@ const Navigation = () => {
         </button>
         {dropdownOpen && userInfo && (
           <ul
-            className={`{absolute right-0 mt-2  mr-14 space-y-2 bg-white text-gray-600 ${
+            className={`{absolute mt-2  mr-14 space-y-2 bg-white text-gray-600 ${
               !userInfo.isAdmin ? "-top-20" : "-top-80"
             }`}
           >
@@ -164,7 +164,7 @@ const Navigation = () => {
             <>
               <li>
                 <Link
-                  to="/admin/profile"
+                  to="/profile"
                   className="block px-4 py-2 hover:bg-gray-100"
                 >
                   Profile
