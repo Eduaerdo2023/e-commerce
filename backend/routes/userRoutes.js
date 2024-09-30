@@ -31,4 +31,5 @@ router
   .delete(authenticate, authorizedAdmin, deleteUser)
   .get(authenticate, authorizedAdmin, getUserById)
   .put(authenticate, authorizedAdmin, adminUpdateUser);
+  
 export default router;

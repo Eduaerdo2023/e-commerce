@@ -102,7 +102,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     if (user.isAdmin) {
       throw new Error("Cannot delete admin user");
     }
-    await User.deleteOne({ _id: user.i_id });
+    await User.deleteOne({ _id: user._id });
     res.json({ message: "User removed" });
   } else {
     res.status(404);
