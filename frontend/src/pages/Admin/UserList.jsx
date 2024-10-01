@@ -11,24 +11,25 @@ import Message from "../../components/Message";
 
 const UserList = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
-   const [deleteUser] = useDeleteUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
   const [updateUser] = useUpdateUserMutation();
 
   const [editableUserId, setEditableUserId] = useState(null);
   const [editableUserName, setEditableUserName] = useState("");
   const [editableUserEmail, setEditableUserEmail] = useState("");
-  const updateHandler = async(id) => {
+
+  const updateHandler = async (id) => {
     try {
       await updateUser({
         userId: id,
         username: editableUserName,
-        email: editableUserEmail
-      })
+        email: editableUserEmail,
+      });
 
-      setEditableUserId(null)
-      refetch()
+      setEditableUserId(null);
+      refetch();
     } catch (error) {
-      toast.error(error.data.message || error.error)
+      toast.error(error.data.message || error.error);
     }
   };
 
@@ -44,10 +45,10 @@ const UserList = () => {
   };
 
   const toggleEdit = (id, username, email) => {
-    setEditableUserId(id)
-    setEditableUserName(username)
-    setEditableUserEmail(email)
-  }
+    setEditableUserId(id);
+    setEditableUserName(username);
+    setEditableUserEmail(email);
+  };
 
   useEffect(() => {
     refetch();
@@ -75,7 +76,6 @@ const UserList = () => {
               </tr>
             </thead>
             <tbody>
-             
               {users.map((user) => (
                 <tr key={user._id}>
                   <td className="px-4 py-2">{user._id}</td>
@@ -86,10 +86,10 @@ const UserList = () => {
                           type="text"
                           value={editableUserName}
                           onChange={(e) => setEditableUserName(e.target.value)}
-                          className="w-full p-2 border rounded-lg"
+                          className="w-[14rem] p-2 border rounded-lg"
                         />
                         <button
-                          onClick={()=> updateHandler(user._id)}
+                          onClick={() => updateHandler(user._id)}
                           className="ml-2 bg-blue-500 text-white py-2 px-4 rounded-lg"
                         >
                           {" "}
