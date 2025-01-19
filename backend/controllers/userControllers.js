@@ -73,22 +73,30 @@ const getCurrentUser = asyncHandler(async (req, res) => {
       username: currentUser.username,
       email: currentUser.email,
     });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
   }
 });
 
 const updateProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
   if (user) {
-    user.username = req.body.username || user.username;
+    user.username = req.body.username || user.username;    
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(req.body.password, salt);
       user.password = hashedPassword;
     }
+
+    // Para actualizar el correo es necesario checar si el correo nuevo esta ocupado
+
     const updatedUser = await user.save();
     res.json({
       _id: updatedUser._id,
       username: updatedUser.username,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
     });
   } else {
     res.status(404);
@@ -110,33 +118,35 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-const getUserById = asyncHandler(async(req, res)=> {
-  const user = await User.findById(req.params.id).select('-password')
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select("-password");
   if (user) {
-    res.json(user)
+   return res.json(user);
   } else {
-    res.status(404)
-    throw new Error('User not found')
+     res.status(404);
+    throw new Error("User not found");
   }
-})
+});
 
-const adminUpdateUser = asyncHandler(async(req, res)=> {
-const user = await User.findById(req.params.id);
+const adminUpdateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
   if (user) {
     user.username = req.body.username || user.username;
-    user.isAdmin = Boolean(req.body.isAdmin)
+       
+    user.isAdmin = Boolean(req.body.isAdmin);
+    user.email = req.body.email
     const updatedUser = await user.save();
     res.json({
       _id: updatedUser._id,
       username: updatedUser.username,
       email: updatedUser.email,
-      isAdmin: updatedUser.isAdmin
+      isAdmin: updatedUser.isAdmin,
     });
   } else {
     res.status(404);
     throw new Error("User not found");
   }
-})
+});
 export {
   createUser,
   loginUser,
@@ -146,5 +156,5 @@ export {
   updateProfile,
   deleteUser,
   getUserById,
-  adminUpdateUser
+  adminUpdateUser,
 };

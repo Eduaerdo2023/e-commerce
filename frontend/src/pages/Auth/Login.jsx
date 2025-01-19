@@ -31,7 +31,6 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
-      console.log(res);
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
     } catch (err) {
@@ -40,10 +39,10 @@ const Login = () => {
   };
 
   return (
-    <section className="pl-[10rem] flex flex-wrap">
-      <div className="mr-[4rem] mt-[5rem]">
+    <section className=" pl-[10rem] justify-around flex flex-wrap ">
+      <div className="mr-[4rem] mt-[5rem] ">
         <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
-        <form onSubmit={submitHandler} className="container w-[40rem]">
+        <form onSubmit={submitHandler} className="container w-[30rem]">
           <div className="my-[2rem]">
             <label
               htmlFor="email"
@@ -64,7 +63,8 @@ const Login = () => {
           <div className="mb-4">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-orange-400" >
+              className="block text-sm font-medium text-orange-400"
+            >
               Password
             </label>
             <input
@@ -85,23 +85,24 @@ const Login = () => {
             {isLoading ? "Signing In..." : "Sign In"}
           </button>
 
-        {isLoading && <Loader />}
+          {isLoading && <Loader />}
+          <div className="mt-4 mb-3">
+            <p className="text-orange-300">
+              New Customer?{" "}
+              <Link
+                to={redirect ? `/register?redirect=${redirect}` : "/register"}
+                className="text-pink-600 hover:underline "
+              >
+                Register
+              </Link>
+            </p>
+          </div>
         </form>
-        <div className="mt-4 mb-3">
-          <p className="text-orange-900">
-            New Customer?{" "}
-            <Link
-              to={redirect ? `/register?redirect=${redirect}` : "/register"}
-              className="text-pink-500 hover:underline " >
-              Register
-            </Link>
-          </p>
-        </div>
       </div>
       <img
         src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80"
         alt=""
-        className="h-[40%] w-[40%] xl:block md:hidden sm:hidden rounded-lg"
+        className="h-[40%] w-[40%] xl:block md:hidden sm:hidden rounded-lg mt-[4rem]"
       />
     </section>
   );

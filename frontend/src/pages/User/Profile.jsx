@@ -19,6 +19,7 @@ const Profile = () => {
   }, [userInfo.email, userInfo.username]);
 
   const dispatch = useDispatch();
+
   const submitHandler = async (e) => {
     e.preventDefault();
     if(password !== confirmPassword) {
@@ -35,8 +36,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 mt-[10rem]">
-      <div className="flex justify-center align-center md:flex md:space-x-4">
+    <div className="container mx-auto p-4 mt-[6rem]">
+      <div className="flex justify-center align-center md:flex md:space-x-4 ">
         <div className="md: w-1/3 ">
           <h2 className="text-2xl font-semibold mb-4">Update Profile</h2>
 
@@ -48,7 +49,7 @@ const Profile = () => {
               <input
                 type="text"
                 placeholder="Enter name"
-                className="form-input p-4 rounded-sm w-full"
+                className="form-input  rounded w-full"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -60,36 +61,36 @@ const Profile = () => {
               <input
                 type="email"
                 placeholder="Email"
-                className="form-input p-4 rounded-sm w-full"
+                className="form-input  rounded w-full bg-pink-400"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                
               />
             </div>
             <div className="mb-4">
               <label className="block text-orange-500 mb-2" >
-                Password
+                New Password
               </label>
               <input
                 type="password"
                 placeholder="Password"
-                className="form-input p-4 rounded-sm w-full"
+                className="form-input  rounded w-full"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="mb-4">
               <label className="block text-orange-500 mb-2" >
-                Confirm Password
+                Confirm New Password
               </label>
               <input
                 type="password"
                 placeholder="Confirm Password"
-                className="form-input p-4 rounded-sm w-full"
+                className="form-input  rounded w-full"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-[3rem]">
               <button
                 type="submit"
                 className="bg-pink-500 text-white py-2 px-4 rounded hover:bg-pink-600"
@@ -98,7 +99,7 @@ const Profile = () => {
               </button>
               <Link
                 to={"/user-orders"}
-                className="bg-pink-600 text-white py-2 px-4 rounded hover:bg-pink-700"
+                className="bg-pink-500 text-white py-2 px-4 rounded hover:bg-pink-600"
               >
                 My Orders
               </Link>

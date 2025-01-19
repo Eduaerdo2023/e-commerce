@@ -46,13 +46,10 @@ const Navigation = () => {
     };
   return (
     <div
-      style={{ zIndex: 999 }}
-      className={`${
-        showSidebar ? "hidden" : "flex"
-      } xl:flex lg:flex md:hidden sm:hidden  flex-col justify-between p-4 text-white bg-slate-700 w-[4%] hover:w-[10%] h-[100vh] fixed`}
+      className={` xl:flex lg:flex md:hidden sm:hidden  flex-col justify-center p-4 mb-3 text-white bg-slate-700  h-[100vh] fixed`}
       id="navigation-container"
     >
-      <div className="flex flex-col justify-center space-y-4">
+      <div className="flex flex-col justify-center space-y-2 mb-10">
         <Link
           to="/"
           className="flex items-center transition-transform hover:translate-x-2"
@@ -85,8 +82,9 @@ const Navigation = () => {
       <div className="relative">
         <button
           onClick={toggleDropdown}
-          className="flex items-center text-gray-800 focus:outline-none"
+          className="flex items-center text-gray-800  focus:outline-none"
         >
+          
           {userInfo ? (
             <span className="text-white">{userInfo.username}</span>
           ) : (
@@ -99,8 +97,8 @@ const Navigation = () => {
                 dropdownOpen ? "transform-rotate-180" : ""
               }`}
               fill="none"
-              viewBox="0 0 24 24"
-              stroke="white"
+              viewBox="0 0 14 24"
+              stroke="red"
             >
               <path
                 strokeLinecap="round"
@@ -113,53 +111,55 @@ const Navigation = () => {
         </button>
         {dropdownOpen && userInfo && (
           <ul
-            className={`{absolute mt-2  mr-14 space-y-2 bg-white text-gray-600 ${
+            className={`{absolute mt-2  mr-14  bg-white text-gray-600 ${
               !userInfo.isAdmin ? "-top-20" : "-top-80"
             }`}
           >
             {userInfo.isAdmin && (
-              <>
-                <li>
-                  <Link
-                    to="/admin/dashboard"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/admin/productlist"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    Products
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/admin/categorylist"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    Category
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/admin/orderlist"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    Orders
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/admin/userlist"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    Users
-                  </Link>
-                </li>
-              </>
+        
+                <>
+                  <li>
+                    <Link
+                      to="/admin/dashboard"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/admin/productlist"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Products
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/admin/categorylist"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Category
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/admin/orderlist"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Orders
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/admin/userlist"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Users
+                    </Link>
+                  </li>
+                </>
+             
             )}
             <>
               <li>

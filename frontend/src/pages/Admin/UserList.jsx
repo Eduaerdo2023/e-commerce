@@ -25,9 +25,7 @@ const UserList = () => {
         username: editableUserName,
         email: editableUserEmail,
       });
-
       setEditableUserId(null);
-      refetch();
     } catch (error) {
       toast.error(error.data.message || error.error);
     }
@@ -37,7 +35,7 @@ const UserList = () => {
     if (window.confirm("Are you sure")) {
       try {
         await deleteUser(id);
-        refetch();
+        refetch()
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
@@ -56,7 +54,7 @@ const UserList = () => {
 
   return (
     <div className="p-4">
-      <h1 className=" ml-[5rem] text-2xl font-semibold mb-4">Users</h1>
+      <h1 className="text-center text-2xl font-semibold mb-[5rem]">Users</h1>
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -64,7 +62,7 @@ const UserList = () => {
           {error?.data.message || error.message}
         </Message>
       ) : (
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col">
           {/* Admin Menu */}
           <table className="w-full md:w-4/5 mx-auto">
             <thead>
@@ -86,7 +84,7 @@ const UserList = () => {
                           type="text"
                           value={editableUserName}
                           onChange={(e) => setEditableUserName(e.target.value)}
-                          className="w-[14rem] p-2 border rounded-lg"
+                          className="w-[14] p-2 border rounded-lg"
                         />
                         <button
                           onClick={() => updateHandler(user._id)}
@@ -116,11 +114,11 @@ const UserList = () => {
                           type="text"
                           value={editableUserEmail}
                           onChange={(e) => setEditableUserEmail(e.target.value)}
-                          className="w-full p-2 border rounded-lg"
+                          className="w-[14] p-2 border rounded-lg"
                         />
                         <button
                           type="text"
-                          onChange={() => updateHandler(user._id)}
+                          onClick={() => updateHandler(user._id)}
                           className="ml-2 bg-blue-500 text-white py-2 px-4 rounded-lg"
                         >
                           <FaCheck />
@@ -143,7 +141,7 @@ const UserList = () => {
                     {user.isAdmin ? (
                       <FaCheck style={{ color: "green" }} />
                     ) : (
-                      <FaCheck style={{ color: "red" }} />
+                      <FaTimes style={{ color: "red" }} />
                     )}
                   </td>
                   <td className="px-4 py-2">
